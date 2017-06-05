@@ -30,7 +30,7 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "handlebars-ex": "git+ssh://git@github.com/chaptykov/handlebars-ex.git",
+    "handlebars-ex": "https://github.com/chaptykov/handlebars-ex.git",
     "underscore": "^1.8.3",
     "virtual-dom": "^2.0.1"
   },
