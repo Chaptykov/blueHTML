@@ -24,11 +24,18 @@
   },
   "homepage": "https://github.com/mictian/blueHTML",
   "dependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "handlebars-ex": "git+ssh://git@github.com/chaptykov/handlebars-ex.git",
     "underscore": "^1.8.3",
     "virtual-dom": "^2.0.1"
   },
   "devDependencies": {
+    "eslint-plugin-node": "^5.0.0",
     "jasmine": "^2.3.1",
     "rimraf": "^2.4.3",
     "short-jsdoc": "^0.2.1"

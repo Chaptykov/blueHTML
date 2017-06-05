@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-semistandard",
+  "rules": {
+    "camelcase": 0
+  }
+}
