@@ -1,60 +1,58 @@
-//@module blueHTML
-var codeGenerator = require('./lib/codeGenerator')
-,	_ = require('underscore')
-,	virtualDOMAdapter = require('./lib/Adapters/virtualDOMAdapter')
-,	reactAdapter = require('./lib/Adapters/reactAdapter')
-,	compositeViewPlugin = require('./defaultPlugins/compositionViews');
+// @module blueHTML
+var CodeGenerator = require('./lib/codeGenerator');
+var _ = require('underscore');
+var virtualDOMAdapter = require('./lib/Adapters/virtualDOMAdapter');
+var reactAdapter = require('./lib/Adapters/reactAdapter');
+var compositeViewPlugin = require('./defaultPlugins/compositionViews');
 
-var local_parser = new codeGenerator()
-,	defaultsAdapters =  {
-		'VD':  virtualDOMAdapter
-	,	'R': reactAdapter
-	};
-
-//@class blueHTML
-module.exports = {
-	//@property {CodeGenerator} codeGenerator
-	codeGenerator: codeGenerator
-
-	//@method generateVirtualDOM Shortcut method to easily start converting handlebarsX to virtual-dom
-	//@param {String} string_html Handlebar HTML template
-	//@param {VirtualDOMGenerationOptions} options List of option to configure the parsing process
-	//@return {String} Final virtual-dom string code already wrapped in a functions
-,	generateVirtualDOM: function (string_html, options)
-	{
-		'use strict';
-
-		options = _.defaults(options || {}, {
-			notGenerateContext: false
-		,	adapterName: 'VD'
-		});
-
-		options.adapter = options.adapter || defaultsAdapters[options.adapterName];
-
-		var result = local_parser.generateCode(string_html, options);
-
-		return result.value;
-	}
-	//@property {Object} defaultPlugins Each property of this object is of type Plugin
-,	defaultPlugins: {
-		'compositeViews': compositeViewPlugin
-	}
-	//@property {Object} defaultsAdapters   Each property of this object is of type Adapter
-,	defaultsAdapters: defaultsAdapters
-	//@method addCustomHandler Method used to define a new custom Handlebars Helper
-	//@param {ExtenderCodeGeneratorObject} handlebars_custom_handlers
-	//@return {Void}
-,	addCustomHandler: local_parser.addCustomHandler
-	//@method installPlugin Install a plugin inside the code generator
-	//@param {Plugin} plugin_container
-	//@return {Void}
-,	installPlugin: local_parser.installPlugin
+var localParser = new CodeGenerator();
+var defaultsAdapters = {
+  'VD': virtualDOMAdapter,
+  'R': reactAdapter
 };
 
+// @class blueHTML
+module.exports = {
+  // @property {CodeGenerator} codeGenerator
+  codeGenerator: CodeGenerator,
+
+  // @method generateVirtualDOM Shortcut method to easily start converting handlebarsX to virtual-dom
+  // @param {String} string_html Handlebar HTML template
+  // @param {VirtualDOMGenerationOptions} options List of option to configure the parsing process
+  // @return {String} Final virtual-dom string code already wrapped in a functions
+  generateVirtualDOM: function (string_html, options) {
+    'use strict';
+
+    options = _.defaults(options || {}, {
+      notGenerateContext: false,
+      adapterName: 'VD'
+    });
+
+    options.adapter = options.adapter || defaultsAdapters[options.adapterName];
+
+    var result = localParser.generateCode(string_html, options);
+
+    return result.value;
+  },
+  // @property {Object} defaultPlugins Each property of this object is of type Plugin
+  defaultPlugins: {
+    'compositeViews': compositeViewPlugin
+  },
+  // @property {Object} defaultsAdapters   Each property of this object is of type Adapter
+  defaultsAdapters: defaultsAdapters,
+  // @method addCustomHandler Method used to define a new custom Handlebars Helper
+  // @param {ExtenderCodeGeneratorObject} handlebars_custom_handlers
+  // @return {Void}
+  addCustomHandler: localParser.addCustomHandler,
+  // @method installPlugin Install a plugin inside the code generator
+  // @param {Plugin} plugin_container
+  // @return {Void}
+  installPlugin: localParser.installPlugin
+};
 
 // @class ExtenderCodeGeneratorObject Object used to extend any of the code generators.
 // In this object each property must be a function. Two kind of functions are supported:
-// * 	**Extension Functions**: These are functions that will take the parameters from the Code generator and output a string code.
+// *   **Extension Functions**: These are functions that will take the parameters from the Code generator and output a string code.
 //         This can be seen as a point to extend the code generator it self.
 //         This functions are distinguish by the property name they are attached to. In this case the name MUST start with the word 'single' and MUST NOT be 'singleInstance'
 //         Sample:
@@ -107,4 +105,3 @@ module.exports = {
 // **Important Note:**
 // 1.   As you can guess, this functions are prefixed with the word *single* as their aim is to handle single helpers. In order word, by the time being **generic block are not supported!!**
 // 2.  The examples here applies to both Attributes and Tags
-
